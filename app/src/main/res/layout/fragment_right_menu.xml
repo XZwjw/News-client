@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_bg_color_black"
+    >
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+        <ImageView
+            android:id="@+id/right_menu_close"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="center"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/delete"
+            />
+
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="?actionBarSize"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentEnd="true"
+            android:scaleType="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/setting"
+            />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/user_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/title_bar"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/user64"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/column_ll"
+        android:layout_below="@id/user_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/msg"
+            style="@style/MenuColunmStyle"
+            android:text="消     息"
+            />
+        <TextView
+            android:id="@+id/collection"
+            style="@style/MenuColunmStyle"
+            android:text="收     藏"
+            />
+        <TextView
+            android:id="@+id/offline"
+            style="@style/MenuColunmStyle"
+            android:text="离     线"
+
+            />
+        <TextView
+            android:id="@+id/notes"
+            style="@style/MenuColunmStyle"
+            android:text="笔     记"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="旺     D"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        />
+</RelativeLayout>

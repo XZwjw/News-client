@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--主频道-->
+    <string-array name="DefaultChannel">
+        <item>新闻</item>
+        <item>精选</item>
+        <item>科技</item>
+        <item>电影</item>
+        <item>NBA</item>
+    </string-array>
+
+    <!--所有频道-->
+    <string-array name="allChannelArray">
+        <item>头条</item>
+        <item>精选</item>
+        <item>科技</item>
+        <item>电影</item>
+        <item>NBA</item>
+    </string-array>
+</resources>

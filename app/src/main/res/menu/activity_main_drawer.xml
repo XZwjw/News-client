@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <!--<item-->
+            <!--android:id="@+id/nav_camera"-->
+            <!--android:icon="@mipmap/news_gray"-->
+            <!--android:title="@string/Journalism" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_gallery"-->
+            <!--android:icon="@mipmap/video_gray"-->
+            <!--android:title="@string/video" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_slideshow"-->
+            <!--android:icon="@mipmap/footprint_gray"-->
+            <!--android:title="@string/history" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_manage"-->
+            <!--android:icon="@mipmap/collection_gray"-->
+            <!--android:title="@string/collection" />-->
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/setting"
+                />
+            <item
+                android:id="@+id/night_theme"
+                android:title="@string/dayOrNight"
+                app:actionLayout="@layout/day_night"
+                />
+        </menu>
+    </item>
+
+</menu>
