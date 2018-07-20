@@ -9,4 +9,5 @@ package com.example.wangjiawang.complete.di.manage;
 public class ApiManage {
     public static final String VAULE1_LOCAL = "local";
     public static final String VAULE2_163 = "163";
+
 }

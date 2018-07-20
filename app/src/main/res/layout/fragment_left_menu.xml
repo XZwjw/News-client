@@ -93,20 +93,20 @@
             android:text="首     页"
             />
         <TextView
-            android:id="@+id/word"
+            android:id="@+id/category"
             style="@style/MenuColunmStyle"
-            android:text="文     字"
+            android:text="分     类"
             />
         <TextView
             android:id="@+id/voice"
             style="@style/MenuColunmStyle"
-            android:text="声     音"
+            android:text="收     藏"
 
             />
         <TextView
             android:id="@+id/television"
             style="@style/MenuColunmStyle"
-            android:text="影     视"
+            android:text="历     史"
             />
     </LinearLayout>
     <TextView

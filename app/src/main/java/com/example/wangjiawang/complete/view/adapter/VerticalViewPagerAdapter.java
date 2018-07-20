@@ -2,15 +2,12 @@ package com.example.wangjiawang.complete.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.example.wangjiawang.complete.model.entity.News;
-import com.example.wangjiawang.complete.view.fragment.MainFragment;
+import com.example.wangjiawang.complete.view.fragment.MainItemFragment;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +25,7 @@ public class VerticalViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainFragment.instance(mArticleList.get(position));
+        return MainItemFragment.instance(mArticleList.get(position));
     }
 
 

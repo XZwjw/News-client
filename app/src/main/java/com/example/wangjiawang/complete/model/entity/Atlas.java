@@ -206,6 +206,9 @@ import java.util.List;
  }
  */
 
+/**
+ * http://c.m.163.com/photo/api/set/0009/16272.json
+ */
 public class Atlas {
 
     private String postid;

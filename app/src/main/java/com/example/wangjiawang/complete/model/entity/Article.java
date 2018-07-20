@@ -209,7 +209,7 @@ public class Article {
     private String docid;
 
     private String dkeys;
-;
+
     private String voicecomment;
     private String replyBoard;
     private String category;
@@ -218,7 +218,7 @@ public class Article {
 
     private List<String> votes;
     private List<String> boboList;
-    private List<String> topiclist;
+    private List<Topiclist_news> topiclist;
     private List<String> ydbaike;
 
     public List<String> getVotes() {
@@ -237,11 +237,11 @@ public class Article {
         this.boboList = boboList;
     }
 
-    public List<String> getTopiclist() {
+    public List<Topiclist_news> getTopiclist() {
         return topiclist;
     }
 
-    public void setTopiclist(List<String> topiclist) {
+    public void setTopiclist(List<Topiclist_news> topiclist) {
         this.topiclist = topiclist;
     }
 
@@ -448,173 +448,6 @@ public class Article {
     public void setReplyBoard(String replyBoard) {
         this.replyBoard = replyBoard;
     }
-
-    //    public void setShareLink(String shareLink) {
-//        this.shareLink = shareLink;
-//    }
-//    public String getShareLink() {
-//        return shareLink;
-//    }
-//
-//    public void setSource(String source) {
-//        this.source = source;
-//    }
-//    public String getSource() {
-//        return source;
-//    }
-//
-//    public void setThreadVote(int threadVote) {
-//        this.threadVote = threadVote;
-//    }
-//    public int getThreadVote() {
-//        return threadVote;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setBody(String body) {
-//        this.body = body;
-//    }
-//    public String getBody() {
-//        return body;
-//    }
-//
-//    public void setTid(String tid) {
-//        this.tid = tid;
-//    }
-//    public String getTid() {
-//        return tid;
-//    }
-//
-//    public void setPicnews(boolean picnews) {
-//        this.picnews = picnews;
-//    }
-//    public boolean getPicnews() {
-//        return picnews;
-//    }
-//
-//    public void setAdvertiseType(String advertiseType) {
-//        this.advertiseType = advertiseType;
-//    }
-//    public String getAdvertiseType() {
-//        return advertiseType;
-//    }
-//
-//    public void setRelative_sys(List<Relative_sys> relative_sys) {
-//        this.relative_sys = relative_sys;
-//    }
-//    public List<Relative_sys> getRelative_sys() {
-//        return relative_sys;
-//    }
-//
-//    public void setArticleType(String articleType) {
-//        this.articleType = articleType;
-//    }
-//    public String getArticleType() {
-//        return articleType;
-//    }
-//
-//    public void setDigest(String digest) {
-//        this.digest = digest;
-//    }
-//    public String getDigest() {
-//        return digest;
-//    }
-//
-//    public void setBoboList(List<String> boboList) {
-//        this.boboList = boboList;
-//    }
-//    public List<String> getBoboList() {
-//        return boboList;
-//    }
-//
-//    public boolean isPicnews() {
-//        return picnews;
-//    }
-//
-//    public String getPtime() {
-//        return ptime;
-//    }
-//
-//    public void setPtime(String ptime) {
-//        this.ptime = ptime;
-//    }
-//
-//    public void setEc(String ec) {
-//        this.ec = ec;
-//    }
-//    public String getEc() {
-//        return ec;
-//    }
-//
-//    public void setRelative_res(List<Relative_res> relative_res) {
-//        this.relative_res = relative_res;
-//    }
-//    public List<Relative_res> getRelative_res() {
-//        return relative_res;
-//    }
-//
-//    public void setDocid(String docid) {
-//        this.docid = docid;
-//    }
-//    public String getDocid() {
-//        return docid;
-//    }
-//
-//    public void setThreadAgainst(int threadAgainst) {
-//        this.threadAgainst = threadAgainst;
-//    }
-//    public int getThreadAgainst() {
-//        return threadAgainst;
-//    }
-//
-//    public void setHasNext(boolean hasNext) {
-//        this.hasNext = hasNext;
-//    }
-//    public boolean getHasNext() {
-//        return hasNext;
-//    }
-//
-//    public void setDkeys(String dkeys) {
-//        this.dkeys = dkeys;
-//    }
-//    public String getDkeys() {
-//        return dkeys;
-//    }
-//
-//    public void setYdbaike(List<String> ydbaike) {
-//        this.ydbaike = ydbaike;
-//    }
-//    public List<String> getYdbaike() {
-//        return ydbaike;
-//    }
-//
-//    public void setReplyCount(int replyCount) {
-//        this.replyCount = replyCount;
-//    }
-//    public int getReplyCount() {
-//        return replyCount;
-//    }
-//
-//    public void setVoicecomment(String voicecomment) {
-//        this.voicecomment = voicecomment;
-//    }
-//    public String getVoicecomment() {
-//        return voicecomment;
-//    }
-//
-//    public void setReplyBoard(String replyBoard) {
-//        this.replyBoard = replyBoard;
-//    }
-//    public String getReplyBoard() {
-//        return replyBoard;
-//    }
-//
 
 
     public void setCategory(String category) {

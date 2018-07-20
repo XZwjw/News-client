@@ -23,6 +23,7 @@ public interface NetEaseApiService {
     @GET("nc/article/{articleId}/full.html")
     Observable<String> getArticle(@Path("articleId") String articleId);
 
+    @Headers("User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36")
     @GET("photo/api/set/{path}.json")
     Observable<Atlas> getAtlas(@Path("path") String path);
 }

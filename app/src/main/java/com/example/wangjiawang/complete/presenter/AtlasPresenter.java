@@ -22,7 +22,7 @@ public class AtlasPresenter implements AtlasContract.Presenter {
     private NetEaseApiService apiService;
 
     @Inject
-    public AtlasPresenter(NetEaseApiService apiService,AtlasContract.View view){
+    public AtlasPresenter(AtlasContract.View view,NetEaseApiService apiService){
         this.apiService = apiService;
         this.view = view;
     }

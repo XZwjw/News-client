@@ -1,13 +1,17 @@
 package com.example.wangjiawang.complete.presenter;
 
 
+import android.content.res.TypedArray;
 import android.util.Log;
 
+import com.example.wangjiawang.complete.R;
+import com.example.wangjiawang.complete.app.CompleteApplication;
 import com.example.wangjiawang.complete.model.api.ApiService;
 import com.example.wangjiawang.complete.model.entity.News;
 import com.example.wangjiawang.complete.model.entity.Result;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,8 +36,41 @@ public class MainPresenter implements MainContract.Presenter{
         this.apiService = service;
     }
 
+    /**
+     * 获取所有分类
+     * @return
+     */
     @Override
-    public void getListByPage(String category,String pageId) {
+    public List<String> getAllClassifications() {
+        return getList(R.array.allChannelArray);
+    }
+
+    /**
+     * 获取默认分类
+     * @return
+     */
+    @Override
+    public List<String> getDefaultCategory() {
+        return getList(R.array.DefaultChannel);
+    }
+
+    /**
+     * 获取array文件中的字符数组
+     * @param id
+     * @return
+     */
+    public List<String> getList(int id) {
+        List<String> list = new ArrayList<>();
+        TypedArray array = CompleteApplication.getInstance().getResources().obtainTypedArray(id);
+        for(int i = 0;i < array.length();i++) {
+            list.add(array.getString(i));
+        }
+        array.recycle();
+        return list;
+    }
+
+    @Override
+    public void getListByPage(final String category, String pageId) {
         apiService.getList(category,pageId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,7 +84,7 @@ public class MainPresenter implements MainContract.Presenter{
                     public void onNext(Result<List<News>> listData) {
                         int size = listData.getData().size();
                         if(size > 0) {
-                            view.updateListUI(listData.getData());
+                            view.updateListUI(listData.getData(),category);
                         } else {
                             view.showNoMore();
                         }
@@ -61,7 +98,7 @@ public class MainPresenter implements MainContract.Presenter{
 
                     @Override
                     public void onComplete() {
-
+                        Log.d("TAG","onComplete");
                     }
                 });
 

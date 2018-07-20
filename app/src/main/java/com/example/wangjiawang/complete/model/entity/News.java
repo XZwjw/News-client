@@ -43,21 +43,23 @@ import java.util.List;
  }
  */
 public class News implements Parcelable {
-    private String id;
-    private String title;
-    private String docurl;
-    private String commenturl;
-    private int tienum;
-    private String tlastid;
-    private String tlink;
-    private String label;
-    private List<Keywords> keywords;
-    private String time;
-    private String newstype;
-    private String imgurl;
-    private String add1;
-    private String add2;
-    private String add3;
+    String id;
+    String title;
+    String docurl;
+    String commenturl;
+    int tienum;
+    String tlastid;
+    String tlink;
+    String label;
+    List<Keywords> keywords;
+    String time;
+    String newstype;
+    String imgurl;
+    String add1;
+    String add2;
+    String add3;
+    public static final String TYPE_ARTICLE = "article";
+    public static final String TYPE_PHOTOSET = "photoset";
 
     public String getId() {
         return id;
@@ -272,8 +274,25 @@ public class News implements Parcelable {
         }
     };
 
+    /**
+     * 获取article部分url
+     * @return
+     */
     public String getArticleId() {
         String[] strings = docurl.substring(0,docurl.length()-5).split("/");
         return strings[strings.length-1];
+    }
+
+    /**
+     * 获取atlas部分url
+     * docurl:http://news.163.com/photoview/00AP0001/2293870.html#p=DJ0US2RC00AP0001NOS中的0001/2293870.
+     * @return
+     */
+    public String getAtlasId() {
+        String[] strings = docurl.split(".html")[0].split("/");
+        int length = strings.length;
+        int path1Length = strings[length-2].length();
+        String string = strings[length-2].substring(path1Length-4,path1Length)+"/"+strings[length-1];
+        return string;
     }
 }

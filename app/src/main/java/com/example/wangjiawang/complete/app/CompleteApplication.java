@@ -1,11 +1,24 @@
 package com.example.wangjiawang.complete.app;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 
+import com.example.wangjiawang.complete.R;
+import com.example.wangjiawang.complete.cache.WangCache;
+import com.example.wangjiawang.complete.cache.WangCacheIm;
 import com.example.wangjiawang.complete.di.components.DaggerNetComponent;
 import com.example.wangjiawang.complete.di.components.NetComponent;
 import com.example.wangjiawang.complete.di.module.NetModule;
+import com.example.wangjiawang.complete.model.entity.Event;
+import com.example.wangjiawang.complete.util.tool.RxBus2;
+import com.example.wangjiawang.complete.view.fragment.LeftMenuFragment;
+import com.example.wangjiawang.complete.view.fragment.RightMenuFragment;
+import com.facebook.stetho.Stetho;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -14,14 +27,18 @@ import com.example.wangjiawang.complete.di.module.NetModule;
  * complete
  */
 public class CompleteApplication extends Application{
+
     private static CompleteApplication instance;
     private NetComponent netComponent;
     public static Typeface typeface;
+
     public static final String DAY_THEME = "DAY_THEME";
     public static final String NIGHT_THEME = "NIGHT_THEME";
+
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
         instance = this;
         initLogger();
         initNet();
@@ -29,6 +46,8 @@ public class CompleteApplication extends Application{
         initTypeFace();
         typeface = Typeface.createFromAsset(getAssets(),"Italics.ttf");
     }
+
+
 
     /**
      * 初始化字体
@@ -66,4 +85,10 @@ public class CompleteApplication extends Application{
     public static CompleteApplication getInstance() {
         return instance;
     }
+
+    public static Context getContext(){
+        return instance.getApplicationContext();
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.wangjiawang.complete.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -81,9 +82,12 @@ public class ArticleActivity extends AppCompatActivity implements ArticleContrac
     @Override
     protected void onStart() {
         super.onStart();
-        String articleId = getIntent().getStringExtra("article");
-        mImageUrl = getIntent().getStringExtra("imageUrl");
-        mPresenter.getArticle(articleId);
+        Intent intent = getIntent();
+        if(intent != null) {
+            String articleId = getIntent().getStringExtra("articleId");
+            mImageUrl = getIntent().getStringExtra("imageUrl");
+            mPresenter.getArticle(articleId);
+        }
     }
 
     private void initPresenter() {

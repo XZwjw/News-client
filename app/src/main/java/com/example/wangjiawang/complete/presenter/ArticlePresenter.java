@@ -1,5 +1,7 @@
 package com.example.wangjiawang.complete.presenter;
 
+import android.util.Log;
+
 import com.example.wangjiawang.complete.model.api.NetEaseApiService;
 import com.example.wangjiawang.complete.model.entity.Article;
 import com.example.wangjiawang.complete.util.tool.StringToArticleFunction;
@@ -47,7 +49,7 @@ public class ArticlePresenter implements ArticleContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d("TAG","onError");
                     }
 
                     @Override

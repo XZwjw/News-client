@@ -16,11 +16,15 @@ public interface MainContract {
         void discussLoading();
         void showNoData();
         void showNoMore();
-        void updateListUI(List<News> list);
+        void updateListUI(List<News> list,String category);
         void showOnFailure();
+
+
     }
 
     interface Presenter {
+        List<String> getAllClassifications();   //获取所有分类
+        List<String> getDefaultCategory();      //获取默认分类
         void getListByPage(String category,String pageId);
     }
 }
