@@ -2,6 +2,8 @@ package com.example.wangjiawang.complete.cache;
 
 import com.example.wangjiawang.complete.model.entity.News;
 
+import java.util.List;
+
 
 /**
  * Description:一个回调函数
@@ -10,5 +12,5 @@ import com.example.wangjiawang.complete.model.entity.News;
  */
 
 public interface Callback {
-    void onSuccess(News news);
+    void onSuccess(List<News> news);
 }

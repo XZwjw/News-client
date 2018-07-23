@@ -5,6 +5,7 @@ import android.os.Message;
 import com.example.wangjiawang.complete.cache.entry.HomeCache;
 import com.example.wangjiawang.complete.model.entity.News;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class WangCache implements WangCacheIm{
+    private static final String TAG = "WangCache";
     private ExecutorService executor = newCacheThreadPool();
     /**
      *
@@ -30,13 +32,13 @@ public class WangCache implements WangCacheIm{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            News news = (News) msg.obj;
-            callback.onSuccess(news);
+            List<News> list = (List<News>) msg.obj;
+            callback.onSuccess(list);
         }
     };
 
     @Override
-    public void doCache(String key,News news) {
+    public void doCache(String key,List<News> news) {
         executor.execute(new DoCacheRunnable(key,news));
     }
 
@@ -48,19 +50,19 @@ public class WangCache implements WangCacheIm{
 
     class DoCacheRunnable implements Runnable {
         private String key;
-        private News news;
-        public DoCacheRunnable(String key,News news) {
+        private List<News> list;
+        public DoCacheRunnable(String key,List<News> list) {
             this.key = key;
-            this.news = news;
+            this.list = list;
         }
         @Override
         public void run() {
-            HomeCache cache = HistoryCache.NewsToCache(news,key);
-            DatabaseManager.insertCache(cache);
+            List<HomeCache> cacheList = HistoryCache.NewsToCache(list,key);
+            DatabaseManager.insertCache(cacheList);
         }
     }
 
-    class GetCacheRunnable implements  Runnable{
+    class GetCacheRunnable implements Runnable{
 
         private String key;
         GetCacheRunnable(String key) {
@@ -69,10 +71,15 @@ public class WangCache implements WangCacheIm{
 
         @Override
         public void run() {
-            HomeCache cache  = DatabaseManager.getCache(key);
-            News news = HistoryCache.cacheToNews(cache);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            List<HomeCache> list  = DatabaseManager.getCache(key);
+            List<News> newsList = HistoryCache.cacheToNews(list);
             Message msg = handler.obtainMessage();
-            msg.obj = news;
+            msg.obj = newsList;
             handler.sendMessage(msg);
         }
     }
@@ -83,7 +90,6 @@ public class WangCache implements WangCacheIm{
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
         }
     }
 

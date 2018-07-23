@@ -180,21 +180,7 @@ public class HomeFragment extends Fragment implements MainContract.View{
     public void showOnFailure() {
         Toast.makeText(getContext(),"加载失败，请检查你的网络连接",Toast.LENGTH_SHORT).show();
         if(list == null||list.size() == 0) {
-            initListByCache(new Callback() {
-                @Override
-                public void onSuccess(List<News> nlist) {
-                    list = nlist;
-                    adapter.setArticleList(nlist);
-                }
-
-                @Override
-                public void onFailure(List<News> nlist) {
-                    Log.d(TAG,"加载超时");
-                    if(list != null) {
-                        adapter.setArticleList(nlist);
-                    }
-                }
-            });
+            initListByCache();
         } else {
             adapter.setArticleList(list);
         }
@@ -224,18 +210,7 @@ public class HomeFragment extends Fragment implements MainContract.View{
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void doCache(List<News> list) {
-        StringBuilder sb = new StringBuilder("");
-        for(int i = 0;i < list.size();i++) {
-            String key = CACHE_KEY_PRE + i;
-            sb.append(key);
-            if(i != list.size() - 1) {
-                sb.append(regularExpression);
-            }
-            wangCache.doCache(key,list.get(i));
-        }
-        editor = sharedPreferences.edit();
-        editor.putString(CACHE_KEY_PRE,sb.toString());
-        editor.apply();
+        wangCache.doCache(CACHE_KEY_PRE,list);
     }
 
     /**
@@ -243,39 +218,14 @@ public class HomeFragment extends Fragment implements MainContract.View{
      * 使用split将所有的key值字符串拆分开得到所有key值
      * @return
      */
-    private void initListByCache(final Callback callback) {
-        final List<News> nlist = new ArrayList<>();
-        final String keysString = sharedPreferences.getString(CACHE_KEY_PRE,null);
-        final long startTime = System.currentTimeMillis();
-        if(keysString != null) {
-            for (String key:
-                    keysString.split(regularExpression)) {
-                wangCache.getCache(key, new com.example.wangjiawang.complete.cache.Callback() {
-                    @Override
-                    public void onSuccess(News news) {
-                        nlist.add(news);
-                        long duration = System.currentTimeMillis() - startTime;
-                        if(nlist.size() == keysString.split(regularExpression).length || duration > 2000) {  //所有数据加载完成或者如果时长大于2秒，则回调刷新列表
-                            if(nlist.size() == keysString.split(regularExpression).length) {
-                                callback.onSuccess(nlist);
-                            }else {
-                                callback.onFailure(nlist);
-                            }
-
-                        }
-                    }
-                });
+    private void initListByCache() {
+        wangCache.getCache(CACHE_KEY_PRE, new com.example.wangjiawang.complete.cache.Callback() {
+            @Override
+            public void onSuccess(List<News> list) {
+                adapter.setArticleList(list);
             }
-
-        }
+        });
     }
 
-    /**
-     * 回调函数，当子线程所有数据加载完成或者超时进行回调
-     */
-    interface Callback {
-        void onSuccess(List<News> list);    //成功加载
-        void onFailure(List<News> list);   //超时回调
-    }
 
 }

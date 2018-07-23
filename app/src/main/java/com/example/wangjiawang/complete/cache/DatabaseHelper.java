@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             +"time varchar(20),newstype varchar(20),pic3 varchar(20),channelname varchar(20),"
             +"imgurl TEXT,add1 TEXT,add2 TEXT,add3 TEXT,last_time TEXT)";
     //keywords关键字表字符串
-    private static final String CREATE_CacheKeywords = "CREATE TABLE IF NOT EXISTS "+HistoryCache.History_keywords+"(_id integer primary key autoincrement,link TEXT,name TEXT,last_time TEXT)";
+    private static final String CREATE_CacheKeywords = "CREATE TABLE IF NOT EXISTS "+HistoryCache.History_keywords+"(_id integer primary key autoincrement,key Text,link TEXT,name TEXT,last_time TEXT)";
 //    //方法二:将JSON作为一个整体的字符串进行建表
 //    private static final String CREATE_CacheTABLE = "CREATE TABLE IF NOT EXISTS new("
 //            +table_CACHE+"TEXT,"

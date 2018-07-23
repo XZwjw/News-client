@@ -35,80 +35,77 @@ public class DatabaseManager {
      * 存入数据,如果存在则替代,不存在则增加
      * @return
      */
-    public synchronized static void insertCache(HomeCache cacheEntry) {
+    public synchronized static void insertCache(List<HomeCache> cacheList) {
         initDatabaseManger();
-        ContentValues values = new ContentValues();
-        values.put(CacheString.key,cacheEntry.getKey());
-        values.put(CacheString.add1,cacheEntry.getAdd1());
-        values.put(CacheString.add2,cacheEntry.getAdd2());
-        values.put(CacheString.add3,cacheEntry.getAdd3());
-        values.put(CacheString.commenturl,cacheEntry.getCommenturl());
-        values.put(CacheString.docurl,cacheEntry.getDocurl());
-        values.put(CacheString.id,cacheEntry.getId());
-        values.put(CacheString.imgurl,cacheEntry.getImgurl());
-        values.put(CacheString.label,cacheEntry.getLabel());
-        values.put(CacheString.newstype,cacheEntry.getNewstype());
-        values.put(CacheString.tienum,cacheEntry.getTienum());
-        values.put(CacheString.time,cacheEntry.getTime());
-        values.put(CacheString.title,cacheEntry.getTitle());
-        values.put(CacheString.tlastid,cacheEntry.getTlastid());
-        values.put(CacheString.lastTime,System.currentTimeMillis());
-
-        String key = cacheEntry.getKey();
-        boolean isHave = search_key(key);
-        String[] keywordIdArray = null;
-        if(isHave) {
-            keywordIdArray = getKeywordsId(key);
-        }
-
-        //keywords列表的存储。
-        long value; //插入表得到的返回值
-        StringBuilder sb = new StringBuilder("");    //将所有的返回值变为字符串
-        ContentValues values2 = new ContentValues();
-        List<News.Keywords> keywordsList = cacheEntry.getKeywords();
-
-        for(int i = 0;i < cacheEntry.getKeywords().size();i++) {
-            values2.put(CacheString.CacheKeywords.link,keywordsList.get(i).getAkey_link());
-            values2.put(CacheString.CacheKeywords.name,keywordsList.get(i).getKeyname());
-            values2.put(CacheString.CacheKeywords.lastTime,System.currentTimeMillis());
-            try {
-                mDbDatabase.beginTransaction();
-                if(isHave) {
-                    mDbDatabase.update(HistoryCache.History_keywords,values2,"_id=?",new String[]{keywordIdArray[i]});
-                    value = Long.valueOf(keywordIdArray[i]);
-                }else {
-                    value = mDbDatabase.insert(HistoryCache.History_keywords,null,values2);
-
-                }
-                if(i == cacheEntry.getKeywords().size() - 1) {
-                    sb.append(value);
-                }else {
-                    sb.append(value+",");
-                }
-                mDbDatabase.setTransactionSuccessful();
-
-            }catch (Exception e) {
-                e.printStackTrace();
-            }finally {
-                mDbDatabase.endTransaction();
-            }
-
-
-        }
-        values.put(CacheString.keywordsRawNumberList,sb.toString());
-        try {
-            mDbDatabase.beginTransaction();
+        if(cacheList != null) {
+            String key = cacheList.get(0).getKey();
+            boolean isHave = search_key(key);   //查询该key值类型的数据是否存在，存在则代替，不存在则增加。
             if(isHave) {
-                mDbDatabase.update(HistoryCache.History_home,values,"key=?",new String[]{cacheEntry.getKey()});
-            }else {
-                mDbDatabase.insert(HistoryCache.History_home,null,values);
+                mDbDatabase.delete(HistoryCache.History_home,"key=?",new String[]{key});
+                mDbDatabase.delete(HistoryCache.History_keywords,"key=?",new String[]{key});
             }
-            mDbDatabase.setTransactionSuccessful();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            mDbDatabase.endTransaction();
+            for (HomeCache cacheEntry:
+                    cacheList) {
+                ContentValues values = new ContentValues();
+                values.put(CacheString.key,cacheEntry.getKey());
+                values.put(CacheString.add1,cacheEntry.getAdd1());
+                values.put(CacheString.add2,cacheEntry.getAdd2());
+                values.put(CacheString.add3,cacheEntry.getAdd3());
+                values.put(CacheString.commenturl,cacheEntry.getCommenturl());
+                values.put(CacheString.docurl,cacheEntry.getDocurl());
+                values.put(CacheString.id,cacheEntry.getId());
+                values.put(CacheString.imgurl,cacheEntry.getImgurl());
+                values.put(CacheString.label,cacheEntry.getLabel());
+                values.put(CacheString.newstype,cacheEntry.getNewstype());
+                values.put(CacheString.tienum,cacheEntry.getTienum());
+                values.put(CacheString.time,cacheEntry.getTime());
+                values.put(CacheString.title,cacheEntry.getTitle());
+                values.put(CacheString.tlastid,cacheEntry.getTlastid());
+                values.put(CacheString.lastTime,System.currentTimeMillis());
+
+                //keywords列表的存储。
+                long value; //插入表得到的返回值
+                StringBuilder sb = new StringBuilder("");    //将所有的返回值变为字符串
+                ContentValues values2 = new ContentValues();
+                List<News.Keywords> keywordsList = cacheEntry.getKeywords();
+
+                for(int i = 0;i < cacheEntry.getKeywords().size();i++) {
+                    values2.put(CacheString.CacheKeywords.link,keywordsList.get(i).getAkey_link());
+                    values2.put(CacheString.CacheKeywords.name,keywordsList.get(i).getKeyname());
+                    values2.put(CacheString.CacheKeywords.lastTime,System.currentTimeMillis());
+                    values2.put(CacheString.CacheKeywords.key,key);
+                    try {
+                        mDbDatabase.beginTransaction();
+                        value = mDbDatabase.insert(HistoryCache.History_keywords,null,values2);
+                        if(i == cacheEntry.getKeywords().size() - 1) {
+                            sb.append(value);
+                        }else {
+                            sb.append(value+",");
+                        }
+                        mDbDatabase.setTransactionSuccessful();
+
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }finally {
+                        mDbDatabase.endTransaction();
+                    }
+
+
+                }
+                values.put(CacheString.keywordsRawNumberList,sb.toString());
+                try {
+                    mDbDatabase.beginTransaction();
+                    mDbDatabase.insert(HistoryCache.History_home,null,values);
+                    mDbDatabase.setTransactionSuccessful();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }finally {
+                    mDbDatabase.endTransaction();
+                }
+            }
         }
+
+
     }
 
    
@@ -118,13 +115,13 @@ public class DatabaseManager {
      * @param key
      * @return
      */
-    public synchronized static HomeCache getCache(String key) {
-        HomeCache cacheEntry = new HomeCache(key);
+    public synchronized static List<HomeCache> getCache(String key) {
+        List<HomeCache> list = new ArrayList<>();
         initDatabaseManger();
         Cursor cursor = mDbDatabase.rawQuery("SELECT * FROM " + HistoryCache.History_home + " WHERE key=?", new String[]{key});
         try {
-            while(cursor != null && cursor.getCount() == 1) {
-                cursor.moveToNext();
+            while(cursor.moveToNext()) {
+                HomeCache cacheEntry = new HomeCache(key);
                 int add1 = cursor.getColumnIndex(CacheString.add1);
                 int add2 = cursor.getColumnIndex(CacheString.add2);
                 int add3 = cursor.getColumnIndex(CacheString.add3);
@@ -173,6 +170,7 @@ public class DatabaseManager {
                 }
 
                 cacheEntry.setKeywords(kwList);
+                list.add(cacheEntry);
             }
         }catch (Exception  e){
             e.printStackTrace();
@@ -181,7 +179,7 @@ public class DatabaseManager {
                 cursor.close();
             }
         }
-        return cacheEntry;
+        return list;
     }
 
     /**
@@ -237,9 +235,6 @@ public class DatabaseManager {
         }
     }
 
-//    public synchronized static HomeCache getCacheById(String id) {
-//        Cursor cursor = mDbDatabase.rawQuery("select * from "+HistoryCache.History_home+" where _id=?",new String[]{id});
-//
-//    }
+
 
 }

@@ -29,5 +29,6 @@ public class CacheString {
         public static String link = "link";
         public static String name = "name";
         public static String lastTime = "last_time";
+        public static String key = "key";
     }
 }
