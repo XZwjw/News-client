@@ -210,7 +210,7 @@ public class HomeFragment extends Fragment implements MainContract.View{
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void doCache(List<News> list) {
-        wangCache.doCache(CACHE_KEY_PRE,list);
+        wangCache.storeCache(CACHE_KEY_PRE,list);
     }
 
     /**
@@ -219,7 +219,7 @@ public class HomeFragment extends Fragment implements MainContract.View{
      * @return
      */
     private void initListByCache() {
-        wangCache.getCache(CACHE_KEY_PRE, new com.example.wangjiawang.complete.cache.Callback() {
+        wangCache.obtainCache(CACHE_KEY_PRE, new com.example.wangjiawang.complete.cache.Callback() {
             @Override
             public void onSuccess(List<News> list) {
                 adapter.setArticleList(list);

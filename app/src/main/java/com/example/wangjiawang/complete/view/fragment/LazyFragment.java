@@ -56,6 +56,7 @@ public abstract class LazyFragment extends Fragment {
         isViewCreated = true;
         initView(rootView);
 
+
         if(isFragmentVisible && isFirstVisible) {
             requestData();
             isFirstVisible = false;

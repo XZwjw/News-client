@@ -12,6 +12,6 @@ import java.util.List;
  */
 
 public interface WangCacheIm{
-    void doCache(String key,List<News> news);     //存储
-    void getCache(String key,Callback callback);              //根据key读取某一条数据。
+    void storeCache(String key,List<News> news);     //存储
+    void obtainCache(String key,Callback callback);              //根据key读取某一条数据。
 }

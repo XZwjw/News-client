@@ -63,7 +63,6 @@ public class CategoryFragment extends LazyFragment implements MainContract.View 
     public List<News> cacheList = new ArrayList<>();
 
 
-
     @Override
     protected int getLayoutRes() {
         return R.layout.category;
@@ -80,6 +79,8 @@ public class CategoryFragment extends LazyFragment implements MainContract.View 
         if (category != null) {
             sharedPreferences = getContext().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         }
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         wangCache = new WangCache();
         init();
     }
@@ -136,8 +137,6 @@ public class CategoryFragment extends LazyFragment implements MainContract.View 
     @Override
     public void updateListUI(List<News> list, String category) {
         adapter = new RecycleViewAdapter(getContext(), list);
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setAdapter(adapter);
         discussLoading();
         doCache(list);
@@ -149,11 +148,14 @@ public class CategoryFragment extends LazyFragment implements MainContract.View 
         if (cacheList.size() == 0) {
             initListByCache();
         } else {
-            adapter = new RecycleViewAdapter(getContext(), cacheList);
-            mLinearLayoutManager = new LinearLayoutManager(getActivity());
-            mRecyclerView.setLayoutManager(mLinearLayoutManager);
-            mRecyclerView.setAdapter(adapter);
-            discussLoading();
+            if(mRecyclerView != null) {
+                adapter = new RecycleViewAdapter(getContext(), cacheList);
+                mRecyclerView.setAdapter(adapter);
+                discussLoading();
+            }else {
+                loadData(category,mPage);
+            }
+
         }
     }
 
@@ -169,7 +171,7 @@ public class CategoryFragment extends LazyFragment implements MainContract.View 
      * @param list
      */
     public void doCache(List<News> list) {
-        wangCache.doCache(category, list);
+        wangCache.storeCache(category, list);
     }
 
     /**
@@ -179,19 +181,20 @@ public class CategoryFragment extends LazyFragment implements MainContract.View 
      * @return
      */
     private void initListByCache() {
-        wangCache.getCache(category, new Callback() {
+        wangCache.obtainCache(category, new Callback() {
             @Override
             public void onSuccess(List<News> list) {
-                if (mLinearLayoutManager == null) {
-                    mLinearLayoutManager = new LinearLayoutManager(getActivity());
-                    mRecyclerView.setLayoutManager(mLinearLayoutManager);
+                if(mRecyclerView != null) {
+                    adapter = new RecycleViewAdapter(getContext(), list);
+                    mRecyclerView.setAdapter(adapter);
+                    cacheList = list;
+                    discussLoading();
+                }else {
+                    loadData(category,mPage);
                 }
-                adapter = new RecycleViewAdapter(getContext(), list);
-                mRecyclerView.setAdapter(adapter);
-                cacheList = list;
-                discussLoading();
             }
         });
+
     }
 
 

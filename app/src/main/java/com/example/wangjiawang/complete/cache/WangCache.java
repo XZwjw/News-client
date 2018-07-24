@@ -1,10 +1,12 @@
 package com.example.wangjiawang.complete.cache;
 
 import android.os.Message;
+import android.util.Log;
 
 import com.example.wangjiawang.complete.cache.entry.HomeCache;
 import com.example.wangjiawang.complete.model.entity.News;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
@@ -27,31 +29,33 @@ public class WangCache implements WangCacheIm{
      * @param news
      * @return
      */
-    private Callback callback;
+    private List<Callback> callbackList = new ArrayList<>();
+    public int position;
+
     private MyHandler handler = new MyHandler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             List<News> list = (List<News>) msg.obj;
-            callback.onSuccess(list);
+            callbackList.get(msg.what).onSuccess(list);
         }
     };
 
     @Override
-    public void doCache(String key,List<News> news) {
-        executor.execute(new DoCacheRunnable(key,news));
+    public void storeCache(String key,List<News> news) {
+        executor.execute(new storeCacheRunnable(key,news));
     }
 
     @Override
-    public void getCache(String key,Callback callback) {
-        executor.execute(new GetCacheRunnable(key));
-       this.callback = callback;
+    public void obtainCache(String key,Callback callback) {
+        callbackList.add(position,callback);
+        executor.execute(new obtainCacheRunnable(key,position++));
     }
 
-    class DoCacheRunnable implements Runnable {
+    class storeCacheRunnable implements Runnable {
         private String key;
         private List<News> list;
-        public DoCacheRunnable(String key,List<News> list) {
+        public storeCacheRunnable(String key,List<News> list) {
             this.key = key;
             this.list = list;
         }
@@ -62,24 +66,22 @@ public class WangCache implements WangCacheIm{
         }
     }
 
-    class GetCacheRunnable implements Runnable{
+    class obtainCacheRunnable implements Runnable{
 
         private String key;
-        GetCacheRunnable(String key) {
+        private int position;
+        obtainCacheRunnable(String key,int position) {
             this.key = key;
+            this.position = position;
         }
 
         @Override
         public void run() {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             List<HomeCache> list  = DatabaseManager.getCache(key);
             List<News> newsList = HistoryCache.cacheToNews(list);
             Message msg = handler.obtainMessage();
             msg.obj = newsList;
+            msg.what = position;
             handler.sendMessage(msg);
         }
     }
