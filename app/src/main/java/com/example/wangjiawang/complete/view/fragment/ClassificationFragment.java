@@ -255,14 +255,19 @@ public class ClassificationFragment extends Fragment implements MainContract.Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imageView_left_slide:
+                int mode = MainActivity.mSlidingMenu.getMode();
                 MainActivity.mSlidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
                 MainActivity.mSlidingMenu.showMenu();
                 MainActivity.mLeftMenu.startAnim();
+                MainActivity.mSlidingMenu.setMode(mode);
                 break;
             case R.id.imageView_right_side:
+                int mode2 = MainActivity.mSlidingMenu.getMode();
                 MainActivity.mSlidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
                 MainActivity.mSlidingMenu.showSecondaryMenu();
                 MainActivity.mRightMenu.startAnim();
+                MainActivity.mSlidingMenu.setMode(mode2);
+                break;
         }
     }
 }
