@@ -15,7 +15,6 @@
 ### 7>浏览历史   (待实现)
 
 ## 成果展示
-<img src="https://github.com/wangjiawangGitHub/News-client/blob/master/1.jpg" width="30%" height="30%" />
-<img src="https://github.com/wangjiawangGitHub/News-client/blob/master/2.jpg" width="30%" height="30%" />
+<img src="https://github.com/wangjiawangGitHub/News-client/blob/master/1.jpg" width="30%" height="30%" />           <img src="https://github.com/wangjiawangGitHub/News-client/blob/master/2.jpg" width="30%" height="30%" />
 
 
