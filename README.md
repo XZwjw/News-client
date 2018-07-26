@@ -2,7 +2,7 @@
 新闻毕设客户端
 =========================================
 ## 大体介绍：
-#### 该项目为一个新闻客户端，数据来源于服务端New server（使用本地服务器tomcat）,客户端根据选择category与page来获取相应的新闻数据。存在网络（局域网）时，数据通过网络请求获取；网络不存在时，数据从缓存中获取。
+该项目为一个新闻客户端，数据来源于服务端New server（使用本地服务器tomcat）,客户端根据选择category与page来获取相应的新闻数据。存在网络（局域网）时，数据通过网络请求获取；网络不存在时，数据从缓存中获取。
 ## 1.使用技术
 ### mvp+dagger2.0+retrofit2.0+rxjava2.0
 ## 2.实现功能
@@ -14,7 +14,7 @@
 ### 6>历史记录   (待实现)
 ### 7>浏览历史   (待实现)
 
-## 成果展示
-<img src="https://github.com/wangjiawangGitHub/News-client/blob/master/1.jpg" width="30%" height="30%" />           <img src="https://github.com/wangjiawangGitHub/News-client/blob/master/2.jpg" width="30%" height="30%" />
+## 3.成果展示
+<img src="https://github.com/wangjiawangGitHub/News-client/blob/master/1.jpg" width="30%" height="30%" /> —————————————— <img src="https://github.com/wangjiawangGitHub/News-client/blob/master/2.jpg" width="30%" height="30%" />
 
 
