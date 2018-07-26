@@ -14,7 +14,7 @@
 ### 7>浏览历史   (待实现)
 
 ## 成果展示
-<img src="https://img-blog.csdn.net/20151129213701642" width="50%" height="50%" />
+<img src="https://github.com/wangjiawangGitHub/News-client/blob/master/1.jpg" width="20%" height="20%" />
 
 
 
