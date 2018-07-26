@@ -17,4 +17,7 @@
 ## 3.成果展示
 <img src="https://github.com/wangjiawangGitHub/News-client/blob/master/1.jpg" width="30%" height="30%" /> —————————————— <img src="https://github.com/wangjiawangGitHub/News-client/blob/master/2.jpg" width="30%" height="30%" />
 
+## 4.使用限制
+本客户端需要启动本地服务器来可以获取数据，所以需要New-Server。
+
 
